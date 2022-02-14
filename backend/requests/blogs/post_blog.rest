@@ -1,0 +1,10 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: bearer eyJhbGcidOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikpvc2UyIiwiaWQiOiI2MThhYzdhOWM1NDE2NDhkOTRhOGQ1ZTkiLCJpYXQiOjE2MzY0ODUwNjYsImV4cCI6MTYzNjQ4ODY2Nn0.uzfil4OFb5ydLxdiXb7AtvtT9b4SlaGw7NEVCj78d-M
+
+{
+    "title": "Hello World TEST",
+    "author": "Jose2",
+    "url": "Tessst",
+    "likes": 3
+}
