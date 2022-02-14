@@ -5,8 +5,9 @@ import blogService from '../services/blogs'
 
 import { useDispatch } from 'react-redux'
 import { setNotification, setErrorNotification } from '../features/notification/notificationSlice'
+import { setLoggedUser } from '../features/users/usersSlice'
 
-const LoginForm = (props) => {
+const LoginForm = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
@@ -23,7 +24,7 @@ const LoginForm = (props) => {
         'loggedBloglistUser', JSON.stringify(user)
       )
       blogService.setToken(user.token)
-      props.setUser(user)
+      dispatch(setLoggedUser(user))
       dispatch(setNotification('Welcome Back ' + user.username))
     } catch (error) {
       dispatch(setErrorNotification('Wrong username or password'))

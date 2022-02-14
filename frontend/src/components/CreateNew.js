@@ -3,8 +3,9 @@ import blogService from '../services/blogs'
 import { useDispatch } from 'react-redux'
 
 import { setNotification, setErrorNotification } from '../features/notification/notificationSlice'
+import { addBlog } from '../features/blogs/blogsSlice'
 
-const CreateNew = (props) => {
+const CreateNew = () => {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
@@ -23,7 +24,7 @@ const CreateNew = (props) => {
 
     const response = await blogService.create(blogObject)
     if (response.status === 201) {
-      props.setBlogs(props.blogs.concat(response.data))
+      dispatch(addBlog(response.data))
       dispatch(setNotification('Blog Created'))
       setHideForm(true)
       setTitle('')

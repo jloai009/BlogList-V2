@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const Blog = ({ blog, handleLike, handleDelete, user }) => {
+const Blog = ({ blog, handleLike, handleDelete, loggedUser }) => {
   const [showInfo, setShowInfo] = useState(false)
   const [buttonText, setButtonText] = useState('View')
 
@@ -18,7 +18,7 @@ const Blog = ({ blog, handleLike, handleDelete, user }) => {
   }
 
   const deleteButton = () => {
-    if (user.username !== blog.user.username) {
+    if (loggedUser.username !== blog.user.username) {
       return null
     }
 
@@ -33,7 +33,7 @@ const Blog = ({ blog, handleLike, handleDelete, user }) => {
 
   const blogInfo = () => (
     <div className="blog-info">
-      <div>{blog.url}</div>
+      <div>URL: {blog.url}</div>
       <div>
         Likes: {blog.likes}&nbsp;
         <button
@@ -43,7 +43,7 @@ const Blog = ({ blog, handleLike, handleDelete, user }) => {
           Like
         </button>
       </div>
-      <div>{blog.user.username}</div>
+      <div>Shared by {blog.user.username}</div>
       {deleteButton()}
     </div>
   )
@@ -51,7 +51,7 @@ const Blog = ({ blog, handleLike, handleDelete, user }) => {
   return (
     <div style={blogStyle} className='blog'>
       <div>
-        {blog.title} {blog.author}
+        {blog.title} by {blog.author}
         &ensp;
         <button
           className="button-view"
@@ -60,7 +60,7 @@ const Blog = ({ blog, handleLike, handleDelete, user }) => {
           {buttonText}
         </button>
       </div>
-      {showInfo ? blogInfo() : null }
+      {showInfo ? blogInfo() : null}
     </div>
   )
 }

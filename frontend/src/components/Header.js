@@ -1,11 +1,16 @@
 import React from 'react'
 import Notification from '../features/notification/Notification'
 
-const Header = (props) => {
+import { useSelector, useDispatch } from 'react-redux'
+import { setLoggedUser } from '../features/users/usersSlice'
+
+const Header = () => {
+  const dispatch = useDispatch()
+  const loggedUser = useSelector(state => state.users.loggedUser)
 
   const handleLogout = () => {
     window.localStorage.removeItem('loggedBloglistUser')
-    props.setUser(null)
+    dispatch(setLoggedUser(null))
   }
 
   return (
@@ -14,7 +19,7 @@ const Header = (props) => {
       <Notification />
       <div>
         <p>
-          {props.user.name} logged in&nbsp;
+          {loggedUser.name} logged in&nbsp;
           <button onClick={handleLogout}>Logout</button>
         </p>
       </div>

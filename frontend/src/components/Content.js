@@ -2,22 +2,20 @@ import React, { useState, useEffect } from 'react'
 import CreateNew from './CreateNew'
 import Showblogs from './Showblogs'
 import blogService from '../services/blogs'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { setErrorNotification } from '../features/notification/notificationSlice'
+import { setBlogs } from '../features/blogs/blogsSlice'
 
-const Content = (props) => {
-  const [blogs, setBlogs] = useState([])
+const Content = () => {
+
+  const blogs = useSelector(state => state.blogs)
 
   const dispatch = useDispatch()
 
-  const setBlogsSorted = (blogs) => {
-    setBlogs(blogs.sort((a, b) => b.likes - a.likes))
-  }
-
   useEffect(() => {
     blogService.getAll().then(blogs =>
-      setBlogsSorted(blogs)
+      dispatch(setBlogs(blogs))
     )
   }, [])
 
@@ -32,7 +30,7 @@ const Content = (props) => {
 
     try {
       const returnedBlog = await blogService.put(id, likedBlog)
-      setBlogsSorted(blogs.map(blog => blog.id !== id ? blog : returnedBlog))
+      dispatch(setBlogs(blogs.map(blog => blog.id !== id ? blog : returnedBlog)))
     } catch (error) {
       dispatch(setErrorNotification('There was an error liking the blog'))
     }
@@ -50,21 +48,20 @@ const Content = (props) => {
     try {
       const response = await blogService._delete(id)
       if (response.status === 204) {
-        setBlogs(blogs.filter(blog => blog.id !== id))
+        dispatch(setBlogs(blogs.filter(blog => blog.id !== id)))
       } else {
         throw new Error()
       }
     } catch (error) {
-      dispatch(setErrorNotification('There was an error Deleting the blog', 'Error'))
+      dispatch(setErrorNotification('There was an error Deleting the blog'))
     }
   }
 
-  const createNewProps = { blogs, setBlogs }
-  const showblogsProps = { blogs, handleLike, handleDelete, user: props.user }
+  const showblogsProps = { blogs, handleLike, handleDelete }
 
   return (
     <div>
-      <CreateNew {...createNewProps} />
+      <CreateNew />
       <Showblogs {...showblogsProps} />
     </div>
 

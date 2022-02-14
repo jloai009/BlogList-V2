@@ -4,16 +4,19 @@ import Header from './components/Header'
 import Content from './components/Content'
 import blogService from './services/blogs'
 
-const App = () => {
+import { useDispatch, useSelector } from 'react-redux'
+import { setLoggedUser } from './features/users/usersSlice'
 
-  const [user, setUser] = useState(null)
+const App = () => {
+  const loggedUser = useSelector(state => state.users.loggedUser)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     try {
       const loggedUserJSON = window.localStorage.getItem('loggedBloglistUser')
       if (loggedUserJSON) {
         const user = JSON.parse(loggedUserJSON)
-        setUser(user)
+        dispatch(setLoggedUser(user))
         blogService.setToken(user.token)
       }
     } catch (error) {
@@ -23,18 +26,14 @@ const App = () => {
 
   }, [])
 
-  const headerProps = { user, setUser }
-  const contentProps = { user }
-  const loginFormProps = { setUser }
-
   return (
     <div>
-      {user ?
+      {loggedUser ?
         <React.Fragment>
-          <Header {...headerProps} />
-          <Content {...contentProps} />
+          <Header />
+          <Content />
         </React.Fragment> :
-        <LoginForm {...loginFormProps} />
+        <LoginForm />
       }
     </div>
   )
