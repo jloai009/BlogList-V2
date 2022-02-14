@@ -1,15 +1,19 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 const Notification = (props) => {
-  if (props.notification === null) {
+
+  const { text, isError } = useSelector(state => state.notification)
+
+  if (text === "") {
     return null
   }
 
   const style = {
-    color: props.errorOcurred ? 'red' : 'green',
+    color: isError ? 'red' : 'green',
     border: 3,
     borderStyle: 'solid',
-    borderColor: props.errorOcurred ? 'red' : 'green',
+    borderColor: isError ? 'red' : 'green',
     borderRadius: 4,
     backgroundColor: 'silver',
     padding: 9,
@@ -19,7 +23,7 @@ const Notification = (props) => {
   return (
     <div id="notification">
       <p style={style}>
-        {props.notification}
+        {text}
       </p>
     </div>
   )

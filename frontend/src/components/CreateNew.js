@@ -1,11 +1,16 @@
 import React, { useState } from 'react'
 import blogService from '../services/blogs'
+import { useDispatch } from 'react-redux'
+
+import { setNotification, setErrorNotification } from '../features/notification/notificationSlice'
 
 const CreateNew = (props) => {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
   const [hideForm, setHideForm] = useState(true)
+
+  const dispatch = useDispatch()
 
   const handleCreateNew = async (event) => {
     event.preventDefault()
@@ -19,13 +24,13 @@ const CreateNew = (props) => {
     const response = await blogService.create(blogObject)
     if (response.status === 201) {
       props.setBlogs(props.blogs.concat(response.data))
-      props.handleNotification('Blog Created')
+      dispatch(setNotification('Blog Created'))
       setHideForm(true)
       setTitle('')
       setAuthor('')
       setUrl('')
     } else {
-      props.handleNotification(response.message, 'Error')
+      dispatch(setErrorNotification(response.message))
     }
   }
 

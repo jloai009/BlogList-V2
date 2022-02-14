@@ -6,8 +6,6 @@ import blogService from './services/blogs'
 
 const App = () => {
 
-  const [notification, setNotification] = useState(null)
-  const [errorOcurred, setErrorOcurred] = useState(false)
   const [user, setUser] = useState(null)
 
   useEffect(() => {
@@ -25,37 +23,17 @@ const App = () => {
 
   }, [])
 
-  const handleNotification = (notification, isError = false) => {
-    setNotification(notification)
-    setTimeout(() => {
-      setNotification(null)
-    }, 5000)
-
-    if (isError) {
-      setErrorOcurred(true)
-      setTimeout(() => {
-        setErrorOcurred(false)
-      }, 5000)
-    }
-  }
-
-
-  const notificationProps = { notification, errorOcurred }
-  const headerProps = { user, setUser, notificationProps }
-  const contentProps = { handleNotification, user }
-  const loginFormProps = {
-    notificationProps,
-    handleNotification,
-    setUser
-  }
+  const headerProps = { user, setUser }
+  const contentProps = { user }
+  const loginFormProps = { setUser }
 
   return (
     <div>
       {user ?
-        <div>
+        <React.Fragment>
           <Header {...headerProps} />
           <Content {...contentProps} />
-        </div> :
+        </React.Fragment> :
         <LoginForm {...loginFormProps} />
       }
     </div>

@@ -1,5 +1,5 @@
 import React from 'react'
-import Notification from './Notification'
+import Notification from '../features/notification/Notification'
 
 const Header = (props) => {
 
@@ -11,7 +11,7 @@ const Header = (props) => {
   return (
     <div>
       <h2>Blog-List</h2>
-      <Notification {...props.notificationProps} />
+      <Notification />
       <div>
         <p>
           {props.user.name} logged in&nbsp;

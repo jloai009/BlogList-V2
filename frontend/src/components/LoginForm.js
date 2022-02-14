@@ -1,13 +1,16 @@
 import React, { useState } from 'react'
-import Notification from './Notification'
+import Notification from '../features/notification/Notification'
 import loginService from '../services/login'
 import blogService from '../services/blogs'
 
-const LoginForm = (props) => {
+import { useDispatch } from 'react-redux'
+import { setNotification, setErrorNotification } from '../features/notification/notificationSlice'
 
+const LoginForm = (props) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
+  const dispatch = useDispatch()
 
   const handleLogin = async (event) => {
     event.preventDefault()
@@ -21,9 +24,9 @@ const LoginForm = (props) => {
       )
       blogService.setToken(user.token)
       props.setUser(user)
-      props.handleNotification('Welcome Back ' + user.username)
+      dispatch(setNotification('Welcome Back ' + user.username))
     } catch (error) {
-      props.handleNotification('Wrong username or password', 'Error')
+      dispatch(setErrorNotification('Wrong username or password'))
     }
   }
 
@@ -31,7 +34,7 @@ const LoginForm = (props) => {
   return (
     <div>
       <h2>Log in to Blog-List</h2>
-      <Notification {...props.notificationProps} />
+      <Notification />
       <form onSubmit={handleLogin}>
         <div>
           <label>Username: </label>
