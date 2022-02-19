@@ -1,11 +1,11 @@
 import React, { useLayoutEffect } from 'react'
-import LoginForm from './components/LoginForm'
-import Content from './components/Content'
+import LoginForm from './features/users/LoginForm'
+import BlogList from './features/blogs/BlogList'
 import blogService from './services/blogs'
 import Navbar from './app/Navbar'
 import Notification from './features/notification/Notification'
-import CreateNew from './components/CreateNew'
-import UsersList from './features/users/usersList'
+import NewBlogForm from './features/blogs/NewBlogForm'
+import UsersList from './features/users/UserList'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { setLoggedUser } from './features/users/usersSlice'
@@ -59,9 +59,8 @@ const App = () => {
             path="/"
             element={
               <React.Fragment>
-                {loggedUser ? <CreateNew /> : null}
-
-                <Content />
+                {loggedUser ? <NewBlogForm /> : null}
+                <BlogList />
               </React.Fragment>
             }
           />

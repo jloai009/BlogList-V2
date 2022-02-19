@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
-import loginService from '../services/login'
-import blogService from '../services/blogs'
+import loginService from '../../services/login'
+import blogService from '../../services/blogs'
 
 import { useDispatch } from 'react-redux'
 import {
   setNotification,
   setErrorNotification,
-} from '../features/notification/notificationSlice'
-import { setLoggedUser } from '../features/users/usersSlice'
+} from '../notification/notificationSlice'
+import { setLoggedUser } from '../users/usersSlice'
 
 import { useNavigate } from 'react-router-dom'
 

@@ -1,14 +1,10 @@
 import React, { useState } from 'react'
-import blogService from '../services/blogs'
 import { useDispatch } from 'react-redux'
 
-import {
-  setNotification,
-  setErrorNotification,
-} from '../features/notification/notificationSlice'
-import { addNewBlog } from '../features/blogs/blogsSlice'
+import { setNotification } from '../notification/notificationSlice'
+import { addNewBlog } from './blogsSlice'
 
-const CreateNew = () => {
+const NewBlogForm = () => {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
@@ -99,4 +95,4 @@ const CreateNew = () => {
   )
 }
 
-export default CreateNew
+export default NewBlogForm

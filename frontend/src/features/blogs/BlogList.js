@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import Blog from './Blog'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchBlogs, selectBlogIds } from '../features/blogs/blogsSlice'
+import { fetchBlogs, selectBlogIds } from './blogsSlice'
 
-const Content = () => {
+const BlogList = () => {
   const dispatch = useDispatch()
   const blogsStatus = useSelector((state) => state.blogs.status)
   const blogIds = useSelector(selectBlogIds)
@@ -26,4 +26,4 @@ const Content = () => {
   )
 }
 
-export default Content
+export default BlogList

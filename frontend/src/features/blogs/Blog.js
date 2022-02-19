@@ -1,10 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import {
-  likeBlog,
-  deleteBlog,
-  selectBlogById,
-} from '../features/blogs/blogsSlice'
+import { likeBlog, deleteBlog, selectBlogById } from './blogsSlice'
 
 const Blog = ({ blogId }) => {
   const dispatch = useDispatch()
