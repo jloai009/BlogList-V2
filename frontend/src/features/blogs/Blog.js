@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { likeBlog, deleteBlog, selectBlogById } from './blogsSlice'
+import { deleteBlog, selectBlogById } from './blogsSlice'
 import { ReactionButtons } from './ReactionButtons'
 
 const Blog = ({ blogId }) => {
@@ -27,8 +27,6 @@ const Blog = ({ blogId }) => {
       {loggedUser && loggedUser.username === blog.user.username ? (
         <button onClick={() => handleDelete(blog)}>Delete</button>
       ) : null}
-      <div>Likes: {blog.likes}</div>
-      <button onClick={() => dispatch(likeBlog(blog.id))}>Like</button>&nbsp;
     </article>
   )
 }

@@ -36,11 +36,6 @@ export const addNewBlog = createAsyncThunk(
   }
 )
 
-export const likeBlog = createAsyncThunk('blogs/likeBlog', async (id) => {
-  await blogsService.like(id)
-  return id
-})
-
 export const updateReactions = createAsyncThunk(
   'blogs/updateReactions',
   async (payload, thunkAPI) => {
@@ -82,9 +77,6 @@ export const blogsSlice = createSlice({
         if (action.payload.status === 201) {
           blogsAdapter.addOne(state, action.payload.newBlog)
         }
-      })
-      .addCase(likeBlog.fulfilled, (state, action) => {
-        state.entities[action.payload].likes++
       })
       .addCase(updateReactions.fulfilled, (state, action) => {
         state.entities[action.payload.blogId].reactions =

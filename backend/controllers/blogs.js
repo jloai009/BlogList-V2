@@ -56,13 +56,6 @@ blogsRouter.put('/:id', async (request, response) => {
   response.json(updatedBlog)
 })
 
-blogsRouter.patch('/like/:id', async (request, response) => {
-  const blogToLike = await Blog.findById(request.params.id)
-  blogToLike.likes++
-  await blogToLike.save()
-  response.status(200).end()
-})
-
 blogsRouter.patch('/reactions/:id', async (request, response) => {
   const blog = await Blog.findById(request.params.id)
   blog.reactions = request.body
