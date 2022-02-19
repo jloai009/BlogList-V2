@@ -6,7 +6,7 @@ import {
   setNotification,
   setErrorNotification,
 } from '../features/notification/notificationSlice'
-import { addBlog } from '../features/blogs/blogsSlice'
+import { addNewBlog } from '../features/blogs/blogsSlice'
 
 const CreateNew = () => {
   const [title, setTitle] = useState('')
@@ -25,17 +25,12 @@ const CreateNew = () => {
       url: url,
     }
 
-    const response = await blogService.create(blogObject)
-    if (response.status === 201) {
-      dispatch(addBlog(response.data))
-      dispatch(setNotification('Blog Created'))
-      setHideForm(true)
-      setTitle('')
-      setAuthor('')
-      setUrl('')
-    } else {
-      dispatch(setErrorNotification(response.message))
-    }
+    dispatch(addNewBlog(blogObject))
+    dispatch(setNotification('Blog Created'))
+    setHideForm(true)
+    setTitle('')
+    setAuthor('')
+    setUrl('')
   }
 
   const changeVisPrevDef = (event) => {

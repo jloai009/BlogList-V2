@@ -13,7 +13,6 @@ const Showblogs = (props) => {
         <Blog
           key={blog.id}
           blog={blog}
-          handleLike={props.handleLike}
           handleDelete={props.handleDelete}
           loggedUser={loggedUser}
         />

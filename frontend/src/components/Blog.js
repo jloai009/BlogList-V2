@@ -1,6 +1,10 @@
 import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { likeBlog } from '../features/blogs/blogsSlice'
 
-let Blog = ({ blog, handleLike, handleDelete, loggedUser }) => {
+const Blog = ({ blog, handleDelete, loggedUser }) => {
+  const dispatch = useDispatch()
+
   return (
     <article className="post-excerpt">
       <h3>{blog.title}</h3>
@@ -10,14 +14,12 @@ let Blog = ({ blog, handleLike, handleDelete, loggedUser }) => {
       <div>URL: {blog.url}</div>
       <div>Shared by {blog.user.username}</div>
       <div>Likes: {blog.likes}</div>
-      <button onClick={() => handleLike(blog.id)}>Like</button>&nbsp;
+      <button onClick={() => dispatch(likeBlog(blog.id))}>Like</button>&nbsp;
       {loggedUser && loggedUser.username === blog.user.username ? (
         <button onClick={() => handleDelete(blog)}>Delete</button>
       ) : null}
     </article>
   )
 }
-
-Blog = React.memo(Blog)
 
 export default Blog

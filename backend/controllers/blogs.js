@@ -17,10 +17,7 @@ blogsRouter.post('/', async (request, response, next) => {
 
   blog.user = user._id.toString()
   user.blogs = user.blogs.concat(blog._id)
-  await User.findOneAndUpdate(
-    { _id: user._id },
-    { blogs: user.blogs }
-  )
+  await User.findOneAndUpdate({ _id: user._id }, { blogs: user.blogs })
 
   let result = await blog.save()
   result = await result.populate('user', { username: 1, name: 1 })
@@ -41,23 +38,29 @@ blogsRouter.delete('/:id', async (request, response) => {
   }
 
   user = await User.findById(user._id.toString())
-  user.blogs = user.blogs.filter(id => id.toString() !== request.params.id)
+  user.blogs = user.blogs.filter((id) => id.toString() !== request.params.id)
 
-  await User.findOneAndUpdate(
-    { _id: user._id },
-    { blogs: user.blogs }
-  )
+  await User.findOneAndUpdate({ _id: user._id }, { blogs: user.blogs })
   await Blog.findByIdAndDelete(request.params.id)
 
   response.status(204).end()
 })
 
 blogsRouter.put('/:id', async (request, response) => {
-  const updatedBlog =
-    await Blog.findByIdAndUpdate(request.params.id, request.body, { new: true })
-      .populate('user', { username: 1, name: 1 })
+  const updatedBlog = await Blog.findByIdAndUpdate(
+    request.params.id,
+    request.body,
+    { new: true }
+  ).populate('user', { username: 1, name: 1 })
 
   response.json(updatedBlog)
+})
+
+blogsRouter.patch('/like/:id', async (request, response) => {
+  const blogToLike = await Blog.findById(request.params.id)
+  blogToLike.likes++
+  await blogToLike.save()
+  response.status(204).end()
 })
 
 module.exports = blogsRouter

@@ -58,7 +58,8 @@ const App = () => {
             path="/"
             element={
               <React.Fragment>
-                <CreateNew />
+                {loggedUser ? <CreateNew /> : null}
+
                 <Content />
               </React.Fragment>
             }
