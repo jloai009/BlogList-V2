@@ -15,6 +15,7 @@ import {
   Routes,
   Navigate,
   Route,
+  Link,
 } from 'react-router-dom'
 
 const App = () => {
@@ -48,7 +49,7 @@ const App = () => {
             textAlign: 'center',
           }}
         >
-          <span>Log in to Blog-List to share your own blogs!</span>
+          <Link to="/login">Log in to Blog-List to share your own blogs!</Link>
         </section>
       )}
       <div className="App">

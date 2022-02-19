@@ -61,6 +61,7 @@ const _delete = async (id) => {
     const response = await axios.delete(url, config)
     return response
   } catch (error) {
+    console.error(error)
     console.error('Error deleting blog with id ' + id)
   }
 }

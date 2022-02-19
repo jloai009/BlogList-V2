@@ -16,32 +16,31 @@ const CreateNew = () => {
 
   const dispatch = useDispatch()
 
-  const handleCreateNew = async (event) => {
-    event.preventDefault()
-
+  const handleCreateNew = async () => {
     const blogObject = {
       title: title,
       author: author,
       url: url,
     }
 
-    dispatch(addNewBlog(blogObject))
-    dispatch(setNotification('Blog Created'))
-    setHideForm(true)
-    setTitle('')
-    setAuthor('')
-    setUrl('')
+    const response = await dispatch(addNewBlog(blogObject)).unwrap()
+    if (response.status !== 400) {
+      dispatch(setNotification('Blog Created'))
+      setHideForm(true)
+      setTitle('')
+      setAuthor('')
+      setUrl('')
+    }
   }
 
-  const changeVisPrevDef = (event) => {
-    event.preventDefault()
+  const changeVisibility = () => {
     setHideForm(!hideForm)
   }
 
   if (hideForm) {
     return (
       <section>
-        <button onClick={changeVisPrevDef}>Create New Blog</button>
+        <button onClick={changeVisibility}>Create New Blog</button>
       </section>
     )
   }
@@ -49,9 +48,9 @@ const CreateNew = () => {
   return (
     <section>
       <h2>Add New Blog</h2>
-      <form onSubmit={handleCreateNew}>
+      <form>
         <div>
-          <label>Title:</label>
+          <label htmlFor="input-title">Title:</label>
           <input
             id="input-title"
             type="text"
@@ -63,7 +62,7 @@ const CreateNew = () => {
           />
         </div>
         <div>
-          <label>Author:</label>
+          <label htmlFor="input-author">Author:</label>
           <input
             id="input-author"
             type="text"
@@ -75,7 +74,7 @@ const CreateNew = () => {
           />
         </div>
         <div>
-          <label>URL:</label>
+          <label htmlFor="input-url">URL:</label>
           <input
             id="input-url"
             type="text"
@@ -87,10 +86,13 @@ const CreateNew = () => {
           />
         </div>
         <div>
-          <button id="button-create" type="submit">
+          <button id="button-create" type="button" onClick={handleCreateNew}>
             Create
           </button>
-          <button onClick={changeVisPrevDef}>Cancel</button>
+          &nbsp;
+          <button type="button" onClick={changeVisibility}>
+            Cancel
+          </button>
         </div>
       </form>
     </section>

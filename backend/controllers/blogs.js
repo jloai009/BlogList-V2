@@ -60,7 +60,7 @@ blogsRouter.patch('/like/:id', async (request, response) => {
   const blogToLike = await Blog.findById(request.params.id)
   blogToLike.likes++
   await blogToLike.save()
-  response.status(204).end()
+  response.status(200).end()
 })
 
 module.exports = blogsRouter

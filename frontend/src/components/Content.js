@@ -1,17 +1,12 @@
 import React, { useEffect } from 'react'
-import Showblogs from './Showblogs'
+import Blog from './Blog'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  deleteBlog,
-  fetchBlogs,
-  selectAllBlogs,
-  selectBlogById,
-  selectBlogIds,
-} from '../features/blogs/blogsSlice'
+import { fetchBlogs, selectBlogIds } from '../features/blogs/blogsSlice'
 
 const Content = () => {
   const dispatch = useDispatch()
   const blogsStatus = useSelector((state) => state.blogs.status)
+  const blogIds = useSelector(selectBlogIds)
 
   useEffect(() => {
     if (blogsStatus === 'idle') {
@@ -19,21 +14,14 @@ const Content = () => {
     }
   }, [blogsStatus, dispatch])
 
-  const blogs = useSelector(selectAllBlogs)
-
-  const handleDelete = async (blog) => {
-    const userConfirmation = window.confirm('Deleting ' + blog.title + '?')
-    if (!userConfirmation) {
-      return
-    }
-    dispatch(deleteBlog(blog.id))
-  }
-
-  const showblogsProps = { blogs, handleDelete }
-
   return (
     <section>
-      <Showblogs {...showblogsProps} />
+      <div className="posts-list">
+        <h2>Blogs</h2>
+        {blogIds.map((blogId) => (
+          <Blog key={blogId} blogId={blogId} />
+        ))}
+      </div>
     </section>
   )
 }

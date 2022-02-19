@@ -1,9 +1,22 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { likeBlog } from '../features/blogs/blogsSlice'
+import {
+  likeBlog,
+  deleteBlog,
+  selectBlogById,
+} from '../features/blogs/blogsSlice'
 
-const Blog = ({ blog, handleDelete, loggedUser }) => {
+const Blog = ({ blogId }) => {
   const dispatch = useDispatch()
+  const loggedUser = useSelector((state) => state.users.loggedUser)
+  const blog = useSelector((state) => selectBlogById(state, blogId))
+  const handleDelete = async (blog) => {
+    const userConfirmation = window.confirm('Deleting ' + blog.title + '?')
+    if (!userConfirmation) {
+      return
+    }
+    dispatch(deleteBlog(blog.id))
+  }
 
   return (
     <article className="post-excerpt">

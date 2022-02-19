@@ -4,6 +4,8 @@ import {
   createEntityAdapter,
 } from '@reduxjs/toolkit'
 
+import { setErrorNotification } from '../notification/notificationSlice'
+
 import blogsService from '../../services/blogs'
 
 export const blogsAdapter = createEntityAdapter({
@@ -22,9 +24,15 @@ export const fetchBlogs = createAsyncThunk('blogs/fetchBlogs', async () => {
 
 export const addNewBlog = createAsyncThunk(
   'blogs/addNewBlog',
-  async (newBlog) => {
+  async (newBlog, thunkAPI) => {
     const response = await blogsService.create(newBlog)
-    return response.data
+    if (response.status !== 201) {
+      thunkAPI.dispatch(setErrorNotification(response.message))
+    }
+    return {
+      status: response.status,
+      newBlog: response.data,
+    }
   }
 )
 
@@ -41,15 +49,7 @@ export const deleteBlog = createAsyncThunk('blogs/deleteBlog', async (id) => {
 export const blogsSlice = createSlice({
   name: 'blogs',
   initialState,
-  reducers: {
-    setBlogs: (state, action) => {
-      return action.payload.sort((a, b) => b.likes - a.likes)
-    },
-    addBlog: (state, action) => {
-      state.push(action.payload)
-      state.sort((a, b) => b.likes - a.likes)
-    },
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(fetchBlogs.pending, (state, action) => {
@@ -57,14 +57,17 @@ export const blogsSlice = createSlice({
       })
       .addCase(fetchBlogs.fulfilled, (state, action) => {
         state.status = 'fulfilled'
-        console.log(action.payload)
         blogsAdapter.upsertMany(state, action.payload)
       })
       .addCase(fetchBlogs.rejected, (state, action) => {
         state.status = 'rejected'
         state.error = action.error.message
       })
-      .addCase(addNewBlog.fulfilled, blogsAdapter.addOne)
+      .addCase(addNewBlog.fulfilled, (state, action) => {
+        if (action.payload.status === 201) {
+          blogsAdapter.addOne(state, action.payload.newBlog)
+        }
+      })
       .addCase(likeBlog.fulfilled, (state, action) => {
         state.entities[action.payload].likes++
       })
@@ -73,8 +76,6 @@ export const blogsSlice = createSlice({
       })
   },
 })
-
-export const { setBlogs, addBlog } = blogsSlice.actions
 
 export default blogsSlice.reducer
 
