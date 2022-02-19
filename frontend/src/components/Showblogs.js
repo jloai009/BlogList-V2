@@ -4,11 +4,12 @@ import Blog from './Blog'
 import { useSelector } from 'react-redux'
 
 const Showblogs = (props) => {
-  const loggedUser = useSelector(state => state.users.loggedUser)
+  const loggedUser = useSelector((state) => state.users.loggedUser)
 
   return (
-    <div>
-      {props.blogs.map(blog =>
+    <div className="posts-list">
+      <h2>Blogs</h2>
+      {props.blogs.map((blog) => (
         <Blog
           key={blog.id}
           blog={blog}
@@ -16,7 +17,7 @@ const Showblogs = (props) => {
           handleDelete={props.handleDelete}
           loggedUser={loggedUser}
         />
-      )}
+      ))}
     </div>
   )
 }

@@ -1,9 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, createEntityAdapter } from '@reduxjs/toolkit'
 
-const initialState = {
+const usersAdapter = createEntityAdapter()
+
+const initialState = usersAdapter.getInitialState({
   loggedUser: null,
-  users: []
-}
+})
 
 export const usersSlice = createSlice({
   name: 'users',
@@ -12,10 +13,9 @@ export const usersSlice = createSlice({
     setLoggedUser: (state, action) => {
       return {
         loggedUser: action.payload,
-        users: state.users
       }
-    }
-  }
+    },
+  },
 })
 
 export const { setLoggedUser } = usersSlice.actions

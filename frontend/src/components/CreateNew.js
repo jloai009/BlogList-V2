@@ -2,7 +2,10 @@ import React, { useState } from 'react'
 import blogService from '../services/blogs'
 import { useDispatch } from 'react-redux'
 
-import { setNotification, setErrorNotification } from '../features/notification/notificationSlice'
+import {
+  setNotification,
+  setErrorNotification,
+} from '../features/notification/notificationSlice'
 import { addBlog } from '../features/blogs/blogsSlice'
 
 const CreateNew = () => {
@@ -19,7 +22,7 @@ const CreateNew = () => {
     const blogObject = {
       title: title,
       author: author,
-      url: url
+      url: url,
     }
 
     const response = await blogService.create(blogObject)
@@ -42,17 +45,15 @@ const CreateNew = () => {
 
   if (hideForm) {
     return (
-      <div>
-        <button onClick={changeVisPrevDef}>
-          Create New Blog
-        </button>
-      </div>
+      <section>
+        <button onClick={changeVisPrevDef}>Create New Blog</button>
+      </section>
     )
   }
 
   return (
-    <div>
-      <h3>Create New</h3>
+    <section>
+      <h2>Add New Blog</h2>
       <form onSubmit={handleCreateNew}>
         <div>
           <label>Title:</label>
@@ -61,7 +62,9 @@ const CreateNew = () => {
             type="text"
             value={title}
             name="Title"
-            onChange={({ target }) => { setTitle(target.value) }}
+            onChange={({ target }) => {
+              setTitle(target.value)
+            }}
           />
         </div>
         <div>
@@ -71,7 +74,9 @@ const CreateNew = () => {
             type="text"
             value={author}
             name="Author"
-            onChange={({ target }) => { setAuthor(target.value) }}
+            onChange={({ target }) => {
+              setAuthor(target.value)
+            }}
           />
         </div>
         <div>
@@ -81,20 +86,19 @@ const CreateNew = () => {
             type="text"
             value={url}
             name="URL"
-            onChange={({ target }) => { setUrl(target.value) }}
+            onChange={({ target }) => {
+              setUrl(target.value)
+            }}
           />
         </div>
         <div>
-          <button
-            id="button-create"
-            type="submit"
-          >
+          <button id="button-create" type="submit">
             Create
           </button>
           <button onClick={changeVisPrevDef}>Cancel</button>
         </div>
       </form>
-    </div>
+    </section>
   )
 }
 

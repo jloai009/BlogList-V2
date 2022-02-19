@@ -1,13 +1,18 @@
 import React, { useState } from 'react'
-import Notification from '../features/notification/Notification'
 import loginService from '../services/login'
 import blogService from '../services/blogs'
 
 import { useDispatch } from 'react-redux'
-import { setNotification, setErrorNotification } from '../features/notification/notificationSlice'
+import {
+  setNotification,
+  setErrorNotification,
+} from '../features/notification/notificationSlice'
 import { setLoggedUser } from '../features/users/usersSlice'
 
+import { useNavigate } from 'react-router-dom'
+
 const LoginForm = () => {
+  const navigate = useNavigate()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
@@ -18,24 +23,21 @@ const LoginForm = () => {
 
     try {
       const user = await loginService.login({
-        username, password
+        username,
+        password,
       })
-      window.localStorage.setItem(
-        'loggedBloglistUser', JSON.stringify(user)
-      )
+      window.localStorage.setItem('loggedBloglistUser', JSON.stringify(user))
       blogService.setToken(user.token)
       dispatch(setLoggedUser(user))
       dispatch(setNotification('Welcome Back ' + user.username))
+      navigate('/')
     } catch (error) {
       dispatch(setErrorNotification('Wrong username or password'))
     }
   }
 
-
   return (
-    <div>
-      <h2>Log in to Blog-List</h2>
-      <Notification />
+    <section>
       <form onSubmit={handleLogin}>
         <div>
           <label>Username: </label>
@@ -61,14 +63,11 @@ const LoginForm = () => {
             }}
           />
         </div>
-        <button
-          id="login-button"
-          type="submit"
-        >
+        <button id="login-button" type="submit">
           Login
         </button>
       </form>
-    </div>
+    </section>
   )
 }
 
