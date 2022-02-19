@@ -1,0 +1,10 @@
+PATCH  http://localhost:3003/api/blogs/reactions/621173882854ec46f92596ea
+Content-Type: application/json
+
+{
+  "thumbsUp": 5,
+  "hooray": 3,
+  "heart": 5,
+  "rocket": 10,
+  "eyes": 5
+}

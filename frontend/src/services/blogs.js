@@ -50,6 +50,12 @@ const like = async (id) => {
   return response
 }
 
+const updateReactions = async (blog) => {
+  const url = baseUrl + '/reactions/' + blog.id
+  const response = await axios.patch(url, blog.reactions)
+  return response
+}
+
 const _delete = async (id) => {
   const config = {
     headers: { Authorization: token },
@@ -68,6 +74,7 @@ const _delete = async (id) => {
 
 // eslint-disable-next-line
 export default {
+  updateReactions,
   like,
   getAll,
   setToken,

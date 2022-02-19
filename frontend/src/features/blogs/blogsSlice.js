@@ -41,6 +41,21 @@ export const likeBlog = createAsyncThunk('blogs/likeBlog', async (id) => {
   return id
 })
 
+export const updateReactions = createAsyncThunk(
+  'blogs/updateReactions',
+  async (payload, thunkAPI) => {
+    const { blogId, reaction } = payload
+    const blog = thunkAPI.getState().blogs.entities[blogId]
+    let newBlog = {
+      ...blog,
+      reactions: { ...blog.reactions },
+    }
+    newBlog.reactions[reaction]++
+    const response = await blogsService.updateReactions(newBlog)
+    return { blogId, reactions: response.data }
+  }
+)
+
 export const deleteBlog = createAsyncThunk('blogs/deleteBlog', async (id) => {
   await blogsService._delete(id)
   return id
@@ -70,6 +85,10 @@ export const blogsSlice = createSlice({
       })
       .addCase(likeBlog.fulfilled, (state, action) => {
         state.entities[action.payload].likes++
+      })
+      .addCase(updateReactions.fulfilled, (state, action) => {
+        state.entities[action.payload.blogId].reactions =
+          action.payload.reactions
       })
       .addCase(deleteBlog.fulfilled, (state, action) => {
         blogsAdapter.removeOne(state, action.payload)

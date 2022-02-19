@@ -63,4 +63,11 @@ blogsRouter.patch('/like/:id', async (request, response) => {
   response.status(200).end()
 })
 
+blogsRouter.patch('/reactions/:id', async (request, response) => {
+  const blog = await Blog.findById(request.params.id)
+  blog.reactions = request.body
+  await blog.save()
+  response.status(200).json(blog.reactions)
+})
+
 module.exports = blogsRouter

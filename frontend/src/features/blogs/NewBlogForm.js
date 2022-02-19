@@ -17,6 +17,13 @@ const NewBlogForm = () => {
       title: title,
       author: author,
       url: url,
+      reactions: {
+        thumbsUp: 0,
+        hooray: 0,
+        heart: 0,
+        rocket: 0,
+        eyes: 0,
+      },
     }
 
     const response = await dispatch(addNewBlog(blogObject)).unwrap()
