@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import Blog from './Blog'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchBlogs, selectBlogIds } from './blogsSlice'
+import { Spinner } from '../../components/Spinner'
 
 const BlogList = () => {
   const dispatch = useDispatch()
@@ -14,13 +15,19 @@ const BlogList = () => {
     }
   }, [blogsStatus, dispatch])
 
+  let content
+
+  if (blogsStatus === 'fulfilled') {
+    content = blogIds.map((blogId) => <Blog key={blogId} blogId={blogId} />)
+  } else {
+    content = <Spinner text="Loading..." />
+  }
+
   return (
     <section>
       <div className="posts-list">
         <h2>Blogs</h2>
-        {blogIds.map((blogId) => (
-          <Blog key={blogId} blogId={blogId} />
-        ))}
+        {content}
       </div>
     </section>
   )
