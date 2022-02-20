@@ -1,13 +1,30 @@
-import React from 'react'
+import React, { useLayoutEffect } from 'react'
+import Blog from './Blog'
+import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { deleteBlog, selectBlogById } from './blogsSlice'
+import { fetchBlogs, selectBlogById, deleteBlog } from './blogsSlice'
 import { ReactionButtons } from './ReactionButtons'
-import { Link } from 'react-router-dom'
 
-const Blog = ({ blogId }) => {
+const SingleBlogPage = () => {
+  const { blogId } = useParams()
   const dispatch = useDispatch()
   const loggedUser = useSelector((state) => state.users.loggedUser)
+  const blogsStatus = useSelector((state) => state.blogs.status)
+  useLayoutEffect(() => {
+    if (blogsStatus === 'idle') {
+      dispatch(fetchBlogs())
+    }
+  }, [dispatch, blogsStatus])
+
   const blog = useSelector((state) => selectBlogById(state, blogId))
+
+  if (blogsStatus !== 'fulfilled' || !blog) {
+    return (
+      <section>
+        <h2>Blog not found...</h2>
+      </section>
+    )
+  }
   const handleDelete = async (blog) => {
     const userConfirmation = window.confirm('Deleting ' + blog.title + '?')
     if (!userConfirmation) {
@@ -15,10 +32,9 @@ const Blog = ({ blogId }) => {
     }
     dispatch(deleteBlog(blog.id))
   }
-
   return (
-    <article className="post-excerpt">
-      <h3>{blog.title}</h3>
+    <section>
+      <h2>{blog.title}</h2>
       <div>
         <i>Author: {blog.author}</i>
       </div>
@@ -30,15 +46,11 @@ const Blog = ({ blogId }) => {
       </div>
       <div>Shared by {blog.user.username}</div>
       <ReactionButtons blog={blog} />
-      <Link to={'blogs/' + blog.id}>
-        <button>Comments</button>
-      </Link>
-      &nbsp;
       {loggedUser && loggedUser.username === blog.user.username ? (
         <button onClick={() => handleDelete(blog)}>Delete</button>
       ) : null}
-    </article>
+    </section>
   )
 }
 
-export default Blog
+export default SingleBlogPage

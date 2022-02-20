@@ -28,5 +28,5 @@ export const ReactionButtons = ({ blog }) => {
     )
   })
 
-  return <span>{reactionButtons}</span>
+  return <div>{reactionButtons}</div>
 }

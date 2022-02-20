@@ -7,6 +7,7 @@ import Notification from './features/notification/Notification'
 import NewBlogForm from './features/blogs/NewBlogForm'
 import UsersList from './features/users/UserList'
 import SingleUserPage from './features/users/SingleUserPage'
+import SingleBlogPage from './features/blogs/SingleBlogPage'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { setLoggedUser } from './features/users/usersSlice'
@@ -65,6 +66,7 @@ const App = () => {
               </React.Fragment>
             }
           />
+          <Route exact path="/blogs/:blogId" element={<SingleBlogPage />} />
           <Route exact path="/login" element={<LoginForm />} />
           <Route exact path="/users" element={<UsersList />} />
           <Route exact path="/users/:userId" element={<SingleUserPage />} />
