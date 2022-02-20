@@ -31,7 +31,12 @@ const Header = () => {
           <div className="navLinks">
             <Link to="/">Posts</Link>
             <Link to="/users">Users</Link>
-            {loggedUser ? null : <Link to="/login">Login</Link>}
+            {loggedUser ? null : (
+              <React.Fragment>
+                <Link to="/login">Login</Link>
+                <Link to="/signup">Sign Up</Link>
+              </React.Fragment>
+            )}
           </div>
           {loggedUser ? <LogoutButton /> : null}
         </div>

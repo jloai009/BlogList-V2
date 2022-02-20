@@ -8,6 +8,8 @@ import NewBlogForm from './features/blogs/NewBlogForm'
 import UsersList from './features/users/UserList'
 import SingleUserPage from './features/users/SingleUserPage'
 import SingleBlogPage from './features/blogs/SingleBlogPage'
+import SignUpForm from './features/users/SignUpForm'
+import LoginOrSignUp from './components/LoginorSignup'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { setLoggedUser } from './features/users/usersSlice'
@@ -42,18 +44,7 @@ const App = () => {
     <Router>
       <Navbar />
       <Notification />
-      {loggedUser ? null : (
-        <section
-          style={{
-            fontWeight: 'bold',
-            fontSize: 25,
-            marginLeft: '15',
-            textAlign: 'center',
-          }}
-        >
-          <Link to="/login">Log in to Blog-List to share your own blogs!</Link>
-        </section>
-      )}
+      <LoginOrSignUp loggedUser={loggedUser} />
       <div className="App">
         <Routes>
           <Route
@@ -68,6 +59,7 @@ const App = () => {
           />
           <Route exact path="/blogs/:blogId" element={<SingleBlogPage />} />
           <Route exact path="/login" element={<LoginForm />} />
+          <Route exact path="/signup" element={<SignUpForm />} />
           <Route exact path="/users" element={<UsersList />} />
           <Route exact path="/users/:userId" element={<SingleUserPage />} />
           <Route path="*" element={<Navigate to="/" />} />

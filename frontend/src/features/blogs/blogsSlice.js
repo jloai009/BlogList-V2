@@ -2,6 +2,7 @@ import {
   createSlice,
   createAsyncThunk,
   createEntityAdapter,
+  createSelector,
 } from '@reduxjs/toolkit'
 
 import { setErrorNotification } from '../notification/notificationSlice'
@@ -9,7 +10,17 @@ import { addBlogToUser } from '../users/usersSlice'
 import blogsService from '../../services/blogs'
 
 export const blogsAdapter = createEntityAdapter({
-  sortComparer: (a, b) => b.likes - a.likes,
+  sortComparer: (a, b) =>
+    b.reactions.thumbsUp +
+    b.reactions.hooray +
+    b.reactions.heart +
+    b.reactions.rocket +
+    b.reactions.eyes -
+    (a.reactions.thumbsUp +
+      a.reactions.hooray +
+      a.reactions.heart +
+      a.reactions.rocket +
+      a.reactions.eyes),
 })
 
 const initialState = blogsAdapter.getInitialState({
@@ -29,7 +40,6 @@ export const addNewBlog = createAsyncThunk(
     if (response.status !== 201) {
       thunkAPI.dispatch(setErrorNotification(response.message))
     } else {
-      console.log(response.data)
       thunkAPI.dispatch(
         addBlogToUser({
           userId: response.data.user.id,
@@ -64,6 +74,14 @@ export const deleteBlog = createAsyncThunk('blogs/deleteBlog', async (id) => {
   return id
 })
 
+export const addComment = createAsyncThunk(
+  'blogs/addComment',
+  async ({ blogId, comment }) => {
+    await blogsService.addComment(blogId, comment)
+    return { blogId, comment }
+  }
+)
+
 export const blogsSlice = createSlice({
   name: 'blogs',
   initialState,
@@ -92,6 +110,11 @@ export const blogsSlice = createSlice({
       })
       .addCase(deleteBlog.fulfilled, (state, action) => {
         blogsAdapter.removeOne(state, action.payload)
+      })
+      .addCase(addComment.fulfilled, (state, action) => {
+        state.entities[action.payload.blogId].comments.push(
+          action.payload.comment
+        )
       })
   },
 })

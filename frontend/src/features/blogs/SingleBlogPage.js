@@ -1,13 +1,15 @@
 import React, { useLayoutEffect } from 'react'
 import Blog from './Blog'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchBlogs, selectBlogById, deleteBlog } from './blogsSlice'
 import { ReactionButtons } from './ReactionButtons'
+import BlogComments from './BlogComments'
 
 const SingleBlogPage = () => {
   const { blogId } = useParams()
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const loggedUser = useSelector((state) => state.users.loggedUser)
   const blogsStatus = useSelector((state) => state.blogs.status)
   useLayoutEffect(() => {
@@ -31,6 +33,7 @@ const SingleBlogPage = () => {
       return
     }
     dispatch(deleteBlog(blog.id))
+    navigate('/')
   }
   return (
     <section>
@@ -49,6 +52,7 @@ const SingleBlogPage = () => {
       {loggedUser && loggedUser.username === blog.user.username ? (
         <button onClick={() => handleDelete(blog)}>Delete</button>
       ) : null}
+      <BlogComments blogId={blogId} />
     </section>
   )
 }

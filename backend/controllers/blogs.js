@@ -25,6 +25,16 @@ blogsRouter.post('/', async (request, response, next) => {
   response.status(201).json(result)
 })
 
+blogsRouter.post('/:id/comments', async (request, response) => {
+  console.log('In post comments')
+
+  const blog = await Blog.findById(request.params.id)
+  console.log(request.body)
+  blog.comments.push(request.body.comment)
+  const result = await blog.save()
+  response.status(201).end()
+})
+
 blogsRouter.delete('/:id', async (request, response) => {
   if (!request.user) {
     return response.status(401).json({ error: 'token missing or invalid' })

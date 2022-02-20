@@ -18,6 +18,7 @@ const blogSchema = new mongoose.Schema({
     type: Map,
     of: Number,
   },
+  comments: [String],
 })
 
 blogSchema.set('toJSON', {

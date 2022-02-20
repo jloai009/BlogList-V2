@@ -44,15 +44,16 @@ const put = async (id, newObject) => {
   }
 }
 
-const like = async (id) => {
-  const url = baseUrl + '/like/' + id
-  const response = await axios.patch(url, {})
-  return response
-}
-
 const updateReactions = async (blog) => {
   const url = baseUrl + '/reactions/' + blog.id
   const response = await axios.patch(url, blog.reactions)
+  return response
+}
+
+const addComment = async (blogId, comment) => {
+  console.log(comment)
+  const url = baseUrl + '/' + blogId + '/comments'
+  const response = await axios.post(url, { comment })
   return response
 }
 
@@ -74,8 +75,8 @@ const _delete = async (id) => {
 
 // eslint-disable-next-line
 export default {
+  addComment,
   updateReactions,
-  like,
   getAll,
   setToken,
   create,
