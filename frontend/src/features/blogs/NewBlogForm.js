@@ -13,10 +13,18 @@ const NewBlogForm = () => {
   const dispatch = useDispatch()
 
   const handleCreateNew = async () => {
+    let blogUrl = url
+    if (
+      blogUrl.substring(0, 7) !== 'http://' &&
+      blogUrl.substring(0, 8) !== 'https://'
+    ) {
+      blogUrl = 'http://' + blogUrl
+    }
+
     const blogObject = {
       title: title,
       author: author,
-      url: url,
+      url: blogUrl,
       reactions: {
         thumbsUp: 0,
         hooray: 0,
