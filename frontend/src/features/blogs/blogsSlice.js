@@ -5,7 +5,7 @@ import {
 } from '@reduxjs/toolkit'
 
 import { setErrorNotification } from '../notification/notificationSlice'
-
+import { addBlogToUser } from '../users/usersSlice'
 import blogsService from '../../services/blogs'
 
 export const blogsAdapter = createEntityAdapter({
@@ -28,6 +28,14 @@ export const addNewBlog = createAsyncThunk(
     const response = await blogsService.create(newBlog)
     if (response.status !== 201) {
       thunkAPI.dispatch(setErrorNotification(response.message))
+    } else {
+      console.log(response.data)
+      thunkAPI.dispatch(
+        addBlogToUser({
+          userId: response.data.user.id,
+          blogId: response.data.id,
+        })
+      )
     }
     return {
       status: response.status,

@@ -6,6 +6,7 @@ import Navbar from './app/Navbar'
 import Notification from './features/notification/Notification'
 import NewBlogForm from './features/blogs/NewBlogForm'
 import UsersList from './features/users/UserList'
+import SingleUserPage from './features/users/SingleUserPage'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { setLoggedUser } from './features/users/usersSlice'
@@ -66,6 +67,7 @@ const App = () => {
           />
           <Route exact path="/login" element={<LoginForm />} />
           <Route exact path="/users" element={<UsersList />} />
+          <Route exact path="/users/:userId" element={<SingleUserPage />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>

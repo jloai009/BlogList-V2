@@ -19,9 +19,14 @@ const Blog = ({ blogId }) => {
     <article className="post-excerpt">
       <h3>{blog.title}</h3>
       <div>
-        <i>by {blog.author}</i>
+        <i>Author: {blog.author}</i>
       </div>
-      <div>URL: {blog.url}</div>
+      <div>
+        <span>URL:&nbsp;</span>
+        <a href={blog.url} target="_blank">
+          {blog.url}
+        </a>
+      </div>
       <div>Shared by {blog.user.username}</div>
       <ReactionButtons blog={blog} />
       {loggedUser && loggedUser.username === blog.user.username ? (

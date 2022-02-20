@@ -30,8 +30,8 @@ const Header = () => {
         <div className="navContent">
           <div className="navLinks">
             <Link to="/">Posts</Link>
-            {loggedUser ? null : <Link to="/login">Login</Link>}
             <Link to="/users">Users</Link>
+            {loggedUser ? null : <Link to="/login">Login</Link>}
           </div>
           {loggedUser ? <LogoutButton /> : null}
         </div>
