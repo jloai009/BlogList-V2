@@ -12,11 +12,12 @@ const mongoose = require('mongoose')
 
 logger.info('connecting to ', MONGODB_URI)
 
-mongoose.connect(MONGODB_URI)
+mongoose
+  .connect(MONGODB_URI)
   .then(() => {
     logger.info('connected to MongoDB')
   })
-  .catch(error => {
+  .catch((error) => {
     logger.error('error connecting to MongoDB:', error.message)
   })
 
