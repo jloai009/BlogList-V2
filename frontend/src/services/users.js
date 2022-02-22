@@ -6,5 +6,10 @@ const fetchUsers = async () => {
   return response
 }
 
+const signUpUser = async (user) => {
+  const response = await axios.post(baseUrl, user)
+  return response
+}
+
 // eslint-disable-next-line
-export default { fetchUsers }
+export default { fetchUsers, signUpUser }

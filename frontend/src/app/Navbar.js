@@ -26,15 +26,16 @@ const Header = () => {
   return (
     <nav>
       <section>
-        <h1>Blog-List</h1>
+        <h1>Cool Coding Courses</h1>
+        <p>A cool website to find and share cool coding resources</p>
         <div className="navContent">
           <div className="navLinks">
-            <Link to="/">Posts</Link>
+            <Link to="/">Courses</Link>
             <Link to="/users">Users</Link>
             {loggedUser ? null : (
               <React.Fragment>
                 <Link to="/login">Login</Link>
-                <Link to="/signup">Sign Up</Link>
+                <Link to="/signup">SignUp</Link>
               </React.Fragment>
             )}
           </div>

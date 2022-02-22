@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import loginService from '../../services/login'
+import usersService from '../../services/users'
 import blogService from '../../services/blogs'
 
 import { useDispatch } from 'react-redux'
@@ -34,6 +35,25 @@ const SignUpForm = () => {
     }
   }
 
+  const handleSignUp = async () => {
+    try {
+      const response = await usersService.signUpUser({
+        blogs: [],
+        username,
+        password,
+      })
+      if (response.status === 200) {
+        handleLogin()
+      }
+    } catch (error) {
+      if (password.length < 3) {
+        dispatch(setErrorNotification('Password must be at least 3 characters'))
+      } else {
+        dispatch(setErrorNotification('Sorry, that username is already taken'))
+      }
+    }
+  }
+
   return (
     <section>
       <h2>Sign Up:</h2>
@@ -62,7 +82,9 @@ const SignUpForm = () => {
             }}
           />
         </div>
-        <button type="button">Sign Up</button>
+        <button type="button" onClick={handleSignUp}>
+          Sign Up
+        </button>
       </form>
     </section>
   )

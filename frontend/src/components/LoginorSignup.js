@@ -3,7 +3,11 @@ import { Link, useLocation } from 'react-router-dom'
 
 const LoginOrSignUp = ({ loggedUser }) => {
   const location = useLocation()
-  if (loggedUser || location.pathname === '/signup') {
+  if (
+    loggedUser ||
+    location.pathname === '/signup' ||
+    location.pathname === '/login'
+  ) {
     return null
   }
   return (
@@ -15,7 +19,9 @@ const LoginOrSignUp = ({ loggedUser }) => {
         textAlign: 'center',
       }}
     >
-      <Link to="/login">Log in or sign up to share your own blogs!</Link>
+      <Link to="/login">
+        Log in or sign up to share your favorite coding courses!
+      </Link>
     </section>
   )
 }

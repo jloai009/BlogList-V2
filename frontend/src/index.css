@@ -36,6 +36,11 @@ nav section h1 {
   text-align: center;
 }
 
+nav section p {
+  text-align: center;
+  color: white;
+}
+
 nav section h1,
 nav section {
   color: white;

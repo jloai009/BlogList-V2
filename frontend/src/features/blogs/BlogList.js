@@ -26,7 +26,7 @@ const BlogList = () => {
   return (
     <section>
       <div className="posts-list">
-        <h2>Blogs</h2>
+        <h2>All Courses:</h2>
         {content}
       </div>
     </section>

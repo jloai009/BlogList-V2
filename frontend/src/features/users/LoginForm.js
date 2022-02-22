@@ -9,7 +9,7 @@ import {
 } from '../notification/notificationSlice'
 import { setLoggedUser } from '../users/usersSlice'
 
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 const LoginForm = () => {
   const navigate = useNavigate()
@@ -37,7 +37,12 @@ const LoginForm = () => {
   }
 
   return (
-    <section>
+    <section
+      style={{
+        position: 'relative',
+      }}
+    >
+      <h2>Log In:</h2>
       <form onSubmit={handleLogin}>
         <div>
           <label>Username: </label>
@@ -66,6 +71,16 @@ const LoginForm = () => {
         <button id="login-button" type="submit">
           Login
         </button>
+        &nbsp;
+        <span
+          style={{
+            position: 'absolute',
+            right: 30,
+            bottom: 8,
+          }}
+        >
+          Don't have an account? <Link to="/signup">Sign up here!</Link>
+        </span>
       </form>
     </section>
   )
