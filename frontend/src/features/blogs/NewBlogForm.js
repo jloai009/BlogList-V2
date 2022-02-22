@@ -21,6 +21,10 @@ const NewBlogForm = () => {
       blogUrl = 'http://' + blogUrl
     }
 
+    if (blogUrl === 'http://') {
+      blogUrl = ''
+    }
+
     const blogObject = {
       title: title,
       author: author,
