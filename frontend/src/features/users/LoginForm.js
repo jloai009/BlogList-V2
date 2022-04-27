@@ -68,19 +68,22 @@ const LoginForm = () => {
             }}
           />
         </div>
-        <button id="login-button" type="submit">
-          Login
-        </button>
-        &nbsp;
-        <span
+        <div
           style={{
-            position: 'absolute',
-            right: 30,
-            bottom: 8,
+            whiteSpace: 'nowrap',
           }}
         >
-          Don't have an account? <Link to="/signup">Sign up here!</Link>
-        </span>
+          <span
+            style={{
+              display: 'block',
+            }}
+          >
+            &nbsp;Don't have an account? <Link to="/signup">Sign up here!</Link>
+          </span>
+          <button id="login-button" type="submit">
+            Login
+          </button>
+        </div>
       </form>
     </section>
   )
