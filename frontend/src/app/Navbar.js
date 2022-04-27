@@ -27,7 +27,7 @@ const Header = () => {
     <nav>
       <section>
         <h1>Cool Coding Courses</h1>
-        <p>A cool website to find and share cool coding resources</p>
+        <p>A cool website to find and share cool coding resources!</p>
         <div className="navContent">
           <div className="navLinks">
             <Link to="/">Courses</Link>
@@ -35,7 +35,7 @@ const Header = () => {
             {loggedUser ? null : (
               <React.Fragment>
                 <Link to="/login">Login</Link>
-                <Link to="/signup">SignUp</Link>
+                <Link to="/signup">Sign Up</Link>
               </React.Fragment>
             )}
           </div>
