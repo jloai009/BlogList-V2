@@ -1,5 +1,5 @@
 :root {
-  --redux-color: #764abc;
+  --redux-color: navy;
 }
 
 body {
@@ -52,7 +52,7 @@ nav a:active {
   padding: 0.25rem 1.5rem;
   border-radius: 4px;
   color: white !important;
-  background: #481499;
+  background: #0366ee;
 }
 
 nav a:first-of-type {
@@ -101,6 +101,12 @@ nav a:hover {
   margin-left: 0;
 }
 
+#logout-button {
+  margin-bottom: 0;
+  padding-bottom: 8px;
+  padding-top: 8px;
+}
+
 /* Main content */
 
 section {
@@ -115,6 +121,9 @@ section h1 {
 }
 
 /* Posts list */
+.comment-line {
+  word-break: break-word;
+}
 
 .post h2 {
   font-size: 2.5rem;
@@ -131,6 +140,10 @@ section h1 {
   margin-top: 0.5rem;
 }
 
+.App {
+  margin-bottom: 130px;
+}
+
 .posts-container.disabled {
   opacity: 0.5;
 }
@@ -138,6 +151,11 @@ section h1 {
 .post-excerpt h3 {
   margin: 0;
   font-size: 1.5rem;
+}
+
+.post-excerpt div {
+  /* display: inline-block; */
+  /* max-width: 100%; */
 }
 
 p.post-content {
