@@ -55,14 +55,14 @@ const NewBlogForm = () => {
   if (hideForm) {
     return (
       <section>
-        <button onClick={changeVisibility}>Create New Blog</button>
+        <button onClick={changeVisibility}>Add New Coding Course</button>
       </section>
     )
   }
 
   return (
     <section>
-      <h2>Add New Blog</h2>
+      <h2>Add New Coding Course</h2>
       <form>
         <div>
           <label htmlFor="input-title">Title:</label>

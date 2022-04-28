@@ -18,7 +18,9 @@ const Header = () => {
     return (
       <span>
         <i>{loggedUser.username} logged in&nbsp;</i>
-        <button onClick={handleLogout}>Logout</button>
+        <button id="logout-button" onClick={handleLogout}>
+          Logout
+        </button>
       </span>
     )
   }

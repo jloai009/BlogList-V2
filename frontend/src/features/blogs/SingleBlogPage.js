@@ -44,7 +44,7 @@ const SingleBlogPage = () => {
       <div>
         <span>URL:&nbsp;</span>
         <a href={blog.url} target="_blank">
-          {blog.url}
+          {blog.url.length < 80 ? blog.url : blog.url.substring(0, 80) + '...'}
         </a>
       </div>
       <div>Shared by {blog.user.username}</div>

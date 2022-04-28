@@ -38,7 +38,7 @@ let BlogComments = ({ blogId }) => {
         <tbody>
           {blogComments.map((comment) => (
             <tr key={nanoid()}>
-              <td>{comment}</td>
+              <td className="comment-line">{comment}</td>
             </tr>
           ))}
         </tbody>
