@@ -13,4 +13,4 @@ A full stack web application that allows users to register and share their favor
 - CSS
 - Node.js
 - Express.js
-- MongoDBs
+- MongoDB
